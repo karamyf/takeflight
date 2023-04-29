@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,10 @@ public class UserController{
 	{
 		return "buy";
 	}
-	
+
+	@GetMapping("/thankyou")
+	public String thankyou(){return "thankyou";}
+
 	@GetMapping("/user/products")
 	public String getproduct(Model model) {
 		return "uproduct";
@@ -56,4 +61,42 @@ public class UserController{
 		}
 		return "redirect:/";
 	}
+
+
+	@PostMapping("/process-payment")
+	public String processPayment(@RequestParam("first-name") String firstName, @RequestParam("last-name") String lastName, @RequestParam String number,
+								 @RequestParam String expiry, @RequestParam String cvc, @RequestParam String streetaddress,
+								 @RequestParam String city, @RequestParam String zipcode, @RequestParam String email) {
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject","root","");
+			PreparedStatement pst = conn.prepareStatement("insert into payments(first_name, last_name, card_number, expiry_date, cvc, street_address, city, zip_code, email) values(?,?,?,?,?,?,?,?,?);");
+
+			// Convert expiry date to MySQL date format
+			SimpleDateFormat format1 = new SimpleDateFormat("MM/yy");
+			SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+			Date expiryDate = format1.parse(expiry);
+			String expiryDateStr = format2.format(expiryDate);
+
+			pst.setString(1, firstName);
+			pst.setString(2, lastName);
+			pst.setString(3, number);
+			pst.setString(4, expiryDateStr);
+			pst.setString(5, cvc);
+			pst.setString(6, streetaddress);
+			pst.setString(7, city);
+			pst.setString(8, zipcode);
+			pst.setString(9, email);
+
+			int i = pst.executeUpdate();
+			System.out.println("database updated"+i);
+
+		} catch(Exception e) {
+			System.out.println("Exception: " + e);
+		}
+		return "redirect:/thankyou";
+	}
+
+
+
+
 }
