@@ -85,11 +85,12 @@
     </style>
 </head>
 <body>
-<section class="hero">
+<section class="hero" style="background-image: url('https://media.cntraveler.com/photos/63cac962a20dd5b7d9e22c46/16:9/w_2560%2Cc_limit/Airplane%2520night%2520sky%2520moon%2520_%2520marvin-van-beek-z3faD7yMRwg-unsplash.jpg')">
     <h1>Welcome to TakeFlight</h1>
     <p>Book your dream vacation today!</p>
     <a href="#" class="btn btn-lg btn-primary">Book now</a>
 </section>
+
 
 <section class="container my-5">
     <h2 class="text-center mb-5">Our Services</h2>
@@ -153,58 +154,7 @@
     </div>
 
 </section>
-<section class="contact">
-    <div class="container">
-        <h2 class="text-center mb-5">Contact Us</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <form>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter your name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter your email address">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea class="form-control" id="message" rows="5"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <h4>Our Location</h4>
-                <p>123 Main Street</p>
-                <p>New York, NY 10001</p>
-                <h4>Phone Number</h4>
-                <p>(123) 456-7890</p>
-                <h4>Email Address</h4>
-                <p>info@takeflight.com</p>
-            </div>
-        </div>
-    </div>
-</section>
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <p>&copy; 2023 TakeFlight</p>
-            </div>
-            <div class="col-md-6">
-                <nav class="footer-nav">
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Services</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-</footer>
+
 </body>
 </html>
 <!-- End of HTML code -->
