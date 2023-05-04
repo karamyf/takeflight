@@ -1,3 +1,6 @@
+<%@page import="java.sql.*"%>
+<%@page import="java.util.*"%>
+<%@page import="java.text.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,34 +96,79 @@
 
 
 <section class="container my-5">
-    <h2 class="text-center mb-5">Our Services</h2>
-    <div class="row">
-        <div class="col-lg-4 col-md-6">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1565892669247-88a5e9edaa6b" class="card-img-top" alt="Beach resort">
-                <div class="card-body">
-                    <h5 class="card-title">Beach resorts</h5>
-                    <p class="card-text">Relax on a beautiful sandy beach with crystal clear water at our top-rated beach resorts.</p>
-                </div>
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="text-center">Available Flights</h1>
+                <h3 class="text-center">Choose your destination</h3>
+            </div>
+            <div class="col-12">
+                <form method="get" action="">
+                    <select class="form-control" name="country" onchange="this.form.submit()">
+                        <option value="">Select a country</option>
+                        <option value="all">All</option>
+                        <option value="Morocco">Morocco</option>
+                        <option value="Argentine">Argentine</option>
+                        <option value="Korea">Korea</option>
+                        <option value="France">France</option>
+                        <option value="Philippines">Philippines</option>
+                    </select>
+
+                </form>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1500227249704-87bd9504c825" class="card-img-top" alt="City skyline">
-                <div class="card-body">
-                    <h5 class="card-title">City getaways</h5>
-                    <p class="card-text">Experience the excitement of big city life and stay in luxurious accommodations at our city getaways.</p>
+        <div class="row">
+            <%
+                try {
+                    String url = "jdbc:mysql://localhost:3306/springproject";
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection con = DriverManager.getConnection(url, "root", "");
+                    Statement stmt = con.createStatement();
+                    String countryFilter = "";
+                    if(request.getParameter("country") != null) {
+                        String selectedCountry = request.getParameter("country");
+                        if (selectedCountry.equals("all")) {
+                            // Select all products if "all" option is selected
+                            countryFilter = "";
+                        } else {
+                            // Filter by selected country
+                            countryFilter = " WHERE name='" + selectedCountry + "'";
+                        }
+                    }
+                    ResultSet rs = stmt.executeQuery("SELECT * FROM products" + countryFilter);
+                    int count = 0;
+                    while (rs.next()) {
+                        count++;
+            %>
+
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="<%= rs.getString("image") %>" alt=""></a>
+                    <div class="card-body">
+                        <p class="card-text"><%= rs.getString(2) %> (<%= rs.getInt(6) %> USD)</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <form action="/buy" method="get">
+                                    <input type="hidden" name="id" value="<%= rs.getInt(1) %>">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">Book Now</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <%
+                if (count % 3 == 0) {
+            %>
         </div>
-        <div class="col-lg-4 col-md-6">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1548438498-35b24468b1c7" class="card-img-top" alt="Mountain cabin">
-                <div class="card-body">
-                    <h5 class="card-title">Mountain cabins</h5>
-                    <p class="card-text">Get back to nature and stay in cozy cabins nestled in the mountains at our top-rated mountain destinations.</p>
-                </div>
-            </div>
+        <div class="row">
+            <% } %>
+            <%
+                    }
+                } catch (Exception ex) {
+                    out.println("Exception Occurred:: " + ex.getMessage());
+                }
+            %>
         </div>
     </div>
 </section>
@@ -131,21 +179,21 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="testimonial">
-                    <img src="https://images.unsplash.com/photo-1596949112592-d9cfc61534d3" alt="Customer profile">
+                    <img src="https://www.ccme.org.ma/media/k2/items/cache/d466a5b8137d34830a87d25a15449e83_XL.jpg" alt="Customer profile">
                     <p>"I had the most amazing vacation experience with TakeFlight. The customer service was top-notch and the accommodations were superb."</p>
                     <span>John Doe</span>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="testimonial">
-                    <img src="https://images.unsplash.com/photo-1523043769446-8a8178e791f6" alt="Customer profile">
+                    <img src="https://i1.sndcdn.com/artworks-000394079556-9hg1jr-t500x500.jpg" alt="Customer profile">
                     <p>"I highly recommend TakeFlight for anyone looking to book their next vacation. The booking process was simple and the prices were unbeatable."</p>
                     <span>Jane Smith</span>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="testimonial">
-                    <img src="https://images.unsplash.com/photo-1543196626-71c3d5b32238" alt="Customer profile">
+                    <img src="https://i0.wp.com/bnlib.com/wp-content/uploads/2020/04/Marie-Curie.jpg?fit=500%2C500&ssl=1" alt="Customer profile">
                     <p>"TakeFlight made my dream vacation a reality. I never thought I could afford to travel to such amazing destinations, but they made it possible."</p>
                     <span>Tom Wilson</span>
                 </div>
