@@ -199,6 +199,7 @@
                 </div>
             </div>
         </div>
+        <a href="/add_review" class="btn btn-lg btn-primary">Add Review</a>
     </div>
 
 </section>

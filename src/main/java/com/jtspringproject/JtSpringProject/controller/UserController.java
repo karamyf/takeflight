@@ -1,16 +1,13 @@
 package com.jtspringproject.JtSpringProject.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class UserController{
@@ -61,6 +58,35 @@ public class UserController{
 		}
 		return "redirect:/";
 	}
+	@GetMapping("/add_review")
+	public String showAddReviewForm(Model model) {
+		// Add any necessary model attributes here
+		return "add_review";
+	}
+
+	@PostMapping("/add_review")
+	public String addReview(@RequestParam("name") String name, @RequestParam("rating") int rating,
+							@RequestParam("image") MultipartFile image, @RequestParam("text") String text) {
+
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject","root","");
+			PreparedStatement pst = conn.prepareStatement("insert into reviews(name, rating, image, text) values(?,?,?,?);");
+			pst.setString(1, name);
+			pst.setInt(2, rating);
+			if(image != null && !image.isEmpty()) {
+				pst.setBinaryStream(3, image.getInputStream());
+			} else {
+				pst.setNull(3, Types.BLOB);
+			}
+			pst.setString(4, text);
+			pst.executeUpdate();
+			System.out.println("database updated");
+			conn.close();
+		} catch(Exception e) {
+			System.out.println("Exception: " + e);
+		}
+		return "redirect:/index";
+	}
 
 
 	@PostMapping("/process-payment")
@@ -95,8 +121,5 @@ public class UserController{
 		}
 		return "redirect:/thankyou";
 	}
-
-
-
 
 }
