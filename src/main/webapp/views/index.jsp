@@ -105,13 +105,22 @@
             <div class="col-12">
                 <form method="get" action="">
                     <select class="form-control" name="country" onchange="this.form.submit()">
-                        <option value="">Select a country</option>
-                        <option value="all">All</option>
-                        <option value="Morocco">Morocco</option>
-                        <option value="Argentine">Argentine</option>
-                        <option value="Korea">Korea</option>
-                        <option value="France">France</option>
-                        <option value="Philippines">Philippines</option>
+                        <option value="" selected>Select a country</option>
+                        <%
+                            try {
+                                Class.forName("com.mysql.cj.jdbc.Driver");
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject", "root", "");
+                                Statement stmt = con.createStatement();
+                                ResultSet rs = stmt.executeQuery("SELECT DISTINCT name FROM categories");
+                                while (rs.next()) {
+                                    String name = rs.getString("name");
+                                    out.println("<option value='" + name + "'>" + name + "</option>");
+                                }
+                                con.close();
+                            } catch (Exception e) {
+                                out.println("Error: " + e.getMessage());
+                            }
+                        %>
                     </select>
 
                 </form>
@@ -119,28 +128,23 @@
         </div>
         <div class="row">
             <%
+                String country = request.getParameter("country");
+                if (country == null || country.isEmpty()) {
+                    country = "all"; // par défaut, afficher tous les pays
+                }
                 try {
-                    String url = "jdbc:mysql://localhost:3306/springproject";
                     Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection con = DriverManager.getConnection(url, "root", "");
-                    Statement stmt = con.createStatement();
-                    String countryFilter = "";
-                    if(request.getParameter("country") != null) {
-                        String selectedCountry = request.getParameter("country");
-                        if (selectedCountry.equals("all")) {
-                            // Select all products if "all" option is selected
-                            countryFilter = "";
-                        } else {
-                            // Filter by selected country
-                            countryFilter = " WHERE name='" + selectedCountry + "'";
-                        }
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject", "root", "");
+                    PreparedStatement pstmt;
+                    if (country.equals("all")) {
+                        pstmt = con.prepareStatement("SELECT * FROM products INNER JOIN categories ON products.categoryid = categories.categoryid");
+                    } else {
+                        pstmt = con.prepareStatement("SELECT * FROM products INNER JOIN categories ON products.categoryid = categories.categoryid WHERE categories.name = ?");
+                        pstmt.setString(1, country);
                     }
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM products" + countryFilter);
-                    int count = 0;
+                    ResultSet rs = pstmt.executeQuery();
                     while (rs.next()) {
-                        count++;
             %>
-
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                     <a href="#"><img class="card-img-top" src="<%= rs.getString("image") %>" alt=""></a>
@@ -158,16 +162,12 @@
                 </div>
             </div>
             <%
-                if (count % 3 == 0) {
-            %>
-        </div>
-        <div class="row">
-            <% } %>
-            <%
                     }
-                } catch (Exception ex) {
-                    out.println("Exception Occurred:: " + ex.getMessage());
+                    con.close();
+                } catch (Exception e) {
+                    out.println("Error: " + e.getMessage());
                 }
+
             %>
         </div>
     </div>
