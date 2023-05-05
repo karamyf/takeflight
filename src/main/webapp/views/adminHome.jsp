@@ -52,7 +52,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto"></ul>
 			<ul class="navbar-nav">
-				<li class="nav-item active"><a href="/index" class="card-link btn " style="background-color: #459b46; margin-right: 10px;">Home</a></li>
+				<li class="nav-item active"><a href="/user/products" class="card-link btn " style="background-color: #459b46; margin-right: 10px;">Home</a></li>
 				<li class="nav-item active"><a href="/admin" class="card-link btn " style="background-color: #ee9f2f;">Logout</a></li>
 			</ul>
 
