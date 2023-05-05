@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -180,34 +181,34 @@
 
 <section class="testimonials">
     <div class="container">
-        <h2 class="mb-5">What our customers are saying</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="testimonial">
-                    <img src="https://www.ccme.org.ma/media/k2/items/cache/d466a5b8137d34830a87d25a15449e83_XL.jpg" alt="Customer profile">
-                    <p>"I had the most amazing vacation experience with TakeFlight. The customer service was top-notch and the accommodations were superb."</p>
-                    <span>John Doe</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial">
-                    <img src="https://i1.sndcdn.com/artworks-000394079556-9hg1jr-t500x500.jpg" alt="Customer profile">
-                    <p>"I highly recommend TakeFlight for anyone looking to book their next vacation. The booking process was simple and the prices were unbeatable."</p>
-                    <span>Jane Smith</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial">
-                    <img src="https://i0.wp.com/bnlib.com/wp-content/uploads/2020/04/Marie-Curie.jpg?fit=500%2C500&ssl=1" alt="Customer profile">
-                    <p>"TakeFlight made my dream vacation a reality. I never thought I could afford to travel to such amazing destinations, but they made it possible."</p>
-                    <span>Tom Wilson</span>
-                </div>
-            </div>
-        </div>
-        <a href="/add_review" class="btn btn-lg btn-primary">Add Review</a>
-    </div>
+        <h2>Testimonials</h2>
+        <div class="row" style="overflow-x: auto;">
+            <%
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject", "root", "");
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery("SELECT * FROM reviews ORDER BY RAND() LIMIT 9");
+                    while (rs.next()) {
+                        String name = rs.getString("name");
+                        String text = rs.getString("text");
+                        int rating = rs.getInt("rating");
+                        String stars = "";
+                        for (int i = 0; i < rating; i++) {
+                            stars += "<i class='fa fa-star'></i>";
+                        }
+                        out.println("<div class='col-sm-4 testimonial'><img src='https://via.placeholder.com/100x100.png?text=User' alt='' class='fa fa-star checked'><p>" + text + "</p><span>" + name + " <span class='stars'>" + stars + "</span></span></div>");
+                    }
 
+                    con.close();
+                } catch (Exception e) {
+                    out.println("Error: " + e.getMessage());
+                }
+            %>
+        </div>
+    </div>
 </section>
+
 
 </body>
 </html>
