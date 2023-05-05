@@ -85,11 +85,16 @@
             display: block;
             margin-top: 1rem;
         }
+        .headline {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+
     </style>
 </head>
 <body>
 <section class="hero" style="background-image: url('https://media.cntraveler.com/photos/63cac962a20dd5b7d9e22c46/16:9/w_2560%2Cc_limit/Airplane%2520night%2520sky%2520moon%2520_%2520marvin-van-beek-z3faD7yMRwg-unsplash.jpg')">
-    <h1>Welcome to TakeFlight</h1>
+    <h1 class="headline">Welcome to TakeFlight</h1>
     <p>Book your dream vacation today!</p>
     <a href="#" class="btn btn-lg btn-primary">Book now</a>
 </section>
