@@ -182,13 +182,14 @@
 <section class="testimonials">
     <div class="container">
         <h2>Testimonials</h2>
+        <a href="add_review" class="btn btn-lg btn-primary">Add Review</a>
         <div class="row" style="overflow-x: auto;">
             <%
                 try {
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject", "root", "");
                     Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM reviews ORDER BY RAND() LIMIT 9");
+                    ResultSet rs = stmt.executeQuery("SELECT * FROM reviews ORDER BY RAND()");
                     while (rs.next()) {
                         String name = rs.getString("name");
                         String text = rs.getString("text");
