@@ -35,6 +35,7 @@ public class UserController{
 	public String getproduct(Model model) {
 		return "uproduct";
 	}
+
 	@RequestMapping(value = "newuserregister", method = RequestMethod.POST)
 	public String newUseRegister(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("email") String email)
 	{

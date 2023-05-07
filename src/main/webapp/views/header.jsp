@@ -47,7 +47,7 @@
 </head>
 <body>
 <header>
-    <div class="user-greeting">Hello, John Doe</div>
+    <div class="user-greeting">Hello <?php echo $name; ?>!</div>
     <nav>
         <ul>
             <li><a href="index">Home</a></li>
@@ -57,4 +57,5 @@
     </nav>
 </header>
 </body>
+
 </html>
