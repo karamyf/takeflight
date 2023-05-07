@@ -1,6 +1,8 @@
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
 <%@page import="java.text.*"%>
+<%@ include file="header.jsp" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
