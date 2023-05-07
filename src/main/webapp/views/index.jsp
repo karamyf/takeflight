@@ -179,36 +179,53 @@
     </div>
 </section>
 
-<section class="testimonials">
+<section class="testimonials bg-dark py-5">
     <div class="container">
-        <h2>Testimonials</h2>
-        <a href="add_review" class="btn btn-lg btn-primary">Add Review</a>
-        <div class="row" style="overflow-x: auto;">
-            <%
-                try {
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject", "root", "");
-                    Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM reviews ORDER BY RAND()");
-                    while (rs.next()) {
-                        String name = rs.getString("name");
-                        String text = rs.getString("text");
-                        int rating = rs.getInt("rating");
-                        String stars = "";
-                        for (int i = 0; i < rating; i++) {
-                            stars += "<i class='fa fa-star'></i>";
-                        }
-                        out.println("<div class='col-sm-4 testimonial'><img src='https://via.placeholder.com/100x100.png?text=User' alt='' class='fa fa-star checked'><p>" + text + "</p><span>" + name + " <span class='stars'>" + stars + "</span></span></div>");
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white mb-3">Testimonials</h2>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                        <i class="fa fa-star text-warning"></i>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 text-center">
+                        <a href="add_review" class="btn btn-lg btn-primary">Add Review</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5" id="testimonial-carousel">
+            <% try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject", "root", "");
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM reviews ORDER BY RAND()");
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    String text = rs.getString("text");
+                    int rating = rs.getInt("rating");
+                    String stars = "";
+                    for (int i = 0; i < rating; i++) {
+                        stars += "<i class='fa fa-star'></i>";
                     }
-
-                    con.close();
-                } catch (Exception e) {
-                    out.println("Error: " + e.getMessage());
+                    out.println("<div class='col-sm-4 mb-4'><div class='card h-100 shadow'><div class='card-body'><p class='card-text text-muted'>" + text + "</p></div><div class='card-footer bg-white'><small class='text-muted'>" + name + "</small><div class='stars'>" + stars + "</div></div></div></div>");
                 }
+                con.close();
+            } catch (Exception e) {
+                out.println("Error: " + e.getMessage());
+            }
             %>
         </div>
     </div>
 </section>
+
+
 
 
 </body>
