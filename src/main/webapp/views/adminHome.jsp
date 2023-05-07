@@ -1,4 +1,5 @@
 <!doctype html>
+<%@ include file="header.jsp" %>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
@@ -36,29 +37,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="#"> <img
-				src="../static/images/logo.png" width="auto" height="40"
-				class="d-inline-block align-top" alt="" />
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto"></ul>
-			<ul class="navbar-nav">
-				<li class="nav-item active"><a href="/user/products" class="card-link btn " style="background-color: #459b46; margin-right: 10px;">Home</a></li>
-				<li class="nav-item active"><a href="/admin" class="card-link btn " style="background-color: #ee9f2f;">Logout</a></li>
-			</ul>
-
-		</div>
-	</div>
-</nav>
 
 	<div class="jumbotron text-center bg-light">
 

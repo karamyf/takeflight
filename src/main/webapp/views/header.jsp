@@ -1,6 +1,10 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
+
+
     <title>TakeFlight</title>
     <!-- Add any necessary CSS and JavaScript files here -->
     <style>
@@ -47,7 +51,7 @@
 </head>
 <body>
 <header>
-    <div class="user-greeting">Hello <?php echo $name; ?>!</div>
+    <div class="user-greeting">Welcome ${ username } </div>
     <nav>
         <ul>
             <li><a href="index">Home</a></li>
