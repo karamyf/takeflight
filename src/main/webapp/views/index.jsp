@@ -99,12 +99,12 @@
 <section class="hero" style="background-image: url('https://media.cntraveler.com/photos/63cac962a20dd5b7d9e22c46/16:9/w_2560%2Cc_limit/Airplane%2520night%2520sky%2520moon%2520_%2520marvin-van-beek-z3faD7yMRwg-unsplash.jpg')">
     <h1 class="headline">Welcome to TakeFlight</h1>
     <p>Book your dream vacation today!</p>
-    <a href="#" class="btn btn-lg btn-primary">Book now</a>
+    <a href="#availble-flights" class="btn btn-lg btn-primary">Book now</a>
 </section>
 
 
 <section class="container my-5">
-    <div class="container-fluid">
+    <div id="availble-flights" class="container-fluid">
         <div class="row mb-4">
             <div class="col-12">
                 <h1 class="text-center">Available Flights</h1>
