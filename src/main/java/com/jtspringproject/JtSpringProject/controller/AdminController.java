@@ -10,7 +10,7 @@ import com.mysql.cj.protocol.Resultset;
 
 @Controller
 public class AdminController {
-	int adminlogcheck = 0;
+	int adminlogcheck=0;
 	String usernameforclass = "";
 	@RequestMapping(value = {"/","/logout"})
 	public String returnIndex() {
@@ -76,7 +76,7 @@ public class AdminController {
 		if(adminlogcheck!=0)
 			return "adminHome";
 		else
-			return "redirect:/admin";
+			return "redirect:/logout";
 	}
 	@GetMapping("/loginvalidate")
 	public String adminlog(Model model) {

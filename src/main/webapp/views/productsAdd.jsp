@@ -1,5 +1,6 @@
 <!doctype html>
 <%@page import="java.sql.*"%>
+<%@ include file="header.jsp" %>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -17,34 +18,9 @@
 <title>Document</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img
-				th:src="@{/images/logo.png}" src="../static/images/logo.png"
-				width="auto" height="40" class="d-inline-block align-top" alt="" />
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto"></ul>
-				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link"
-						href="/adminhome" >Home Page</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="/logout" >Logout</a></li>
-
-				</ul>
-
-			</div>
-		</div>
-	</nav><br>
+	<br>
 	<div class="jumbotron container border border-info">
-		<h3>Add a new Product</h3>
+		<h3>Add a New Flight</h3>
 		<form action="sendData" method="post">
 			<div class="row">
 				<div class="col-sm-5">
@@ -99,11 +75,7 @@
 						<input type="number" class="form-control border border-warning" required name="price" min="1" placeholder="Price">
 					</div>
 					<div class="form-group">
-						<label for="weight">Weight in grams</label> 
-						<input type="number" class="form-control border border-warning" required name="weight" min="1" placeholder="Weight">
-					</div>
-					<div class="form-group">
-						<label for="weight">Available Quantity</label> 
+						<label for="quantity">Available Seats</label>
 						<input type="number" class="form-control border border-warning" required name="quantity" min="1" placeholder="Quantity">
 					</div>
 					
@@ -117,13 +89,12 @@
 					</div>
 					<p>Product Image</p>
 					<div class="custom-file">
-						<input type="file" class="custom-file-input" name="productImage" accept="image/jpeg, image/png" id="productImage" onchange="loadfile(event)" /> 
+						<input type="file" class="custom-file-input" name="productImage" accept="image/jpeg, image/png" id="productImage" onchange="loadfile(event)" />
 						<label class="custom-file-label border border-warning" for="productImage">Choose file</label>
 						
 					</div>
 					<div class="form-group">
-						<img src="Product Images/one.jpg" alt="Hello" id="imgPreview" height="100px" width="100px"
-							style="margin-top: 20px" >
+
 					</div>
 					<input type="hidden" name="imgName">
 					<input type="submit" class="btn btn-primary">

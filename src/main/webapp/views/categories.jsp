@@ -1,5 +1,6 @@
 <!doctype html>
 <%@page import="java.sql.*"%>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -60,8 +61,8 @@
 				<div class="modal-content">
 					<form action="sendcategory" method="get">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLongTitle">Add New
-								Category</h5>
+							<h5 class="modal-title" id="exampleModalLongTitle">Add
+								Countries</h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -88,7 +89,7 @@
 			<thead class="thead-light">
 				<tr>
 					<th scope="col">SN</th>
-					<th scope="col">Category Name</th>
+					<th scope="col">Countries</th>
 					<th scope="col">Delete</th>
 					<th scope="col">Update</th>
 				</tr>

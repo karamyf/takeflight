@@ -95,24 +95,10 @@ public class UserController{
 	@PostMapping("/process-payment")
 	public String processPayment(@RequestParam("first-name") String firstName, @RequestParam("last-name") String lastName, @RequestParam String number,
 								 @RequestParam String expiry, @RequestParam String cvc, @RequestParam String streetaddress,
-								 @RequestParam String city, @RequestParam String zipcode, @RequestParam String email, HttpServletRequest request) {
+								 @RequestParam String city, @RequestParam String zipcode, @RequestParam String email) {
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject","root","");
-
-			// Get the user_id of the current logged in user
-			String username = (String) request.getSession().getAttribute("username");
-			PreparedStatement userStmt = conn.prepareStatement("SELECT user_id FROM users WHERE username = ?");
-			userStmt.setString(1, username);
-			ResultSet userResult = userStmt.executeQuery();
-			int userId = -1;
-			if (userResult.next()) {
-				userId = userResult.getInt("user_id");
-			}
-			System.out.println("Username: " + username);
-			System.out.println("User ID: " + userId);
-
-			// Insert the payment details into the payments table
-			PreparedStatement paymentStmt = conn.prepareStatement("INSERT INTO payments (first_name, last_name, card_number, expiry_date, cvc, street_address, city, zip_code, email, order_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement pst = conn.prepareStatement("insert into payments(first_name, last_name, card_number, expiry_date, cvc, street_address, city, zip_code, email) values(?,?,?,?,?,?,?,?,?);");
 
 			// Convert expiry date to MySQL date format
 			SimpleDateFormat format1 = new SimpleDateFormat("MM/yy");
@@ -120,18 +106,17 @@ public class UserController{
 			Date expiryDate = format1.parse(expiry);
 			String expiryDateStr = format2.format(expiryDate);
 
-			paymentStmt.setString(1, firstName);
-			paymentStmt.setString(2, lastName);
-			paymentStmt.setString(3, number);
-			paymentStmt.setString(4, expiryDateStr);
-			paymentStmt.setString(5, cvc);
-			paymentStmt.setString(6, streetaddress);
-			paymentStmt.setString(7, city);
-			paymentStmt.setString(8, zipcode);
-			paymentStmt.setString(9, email);
-			paymentStmt.setInt(10, userId);
+			pst.setString(1, firstName);
+			pst.setString(2, lastName);
+			pst.setString(3, number);
+			pst.setString(4, expiryDateStr);
+			pst.setString(5, cvc);
+			pst.setString(6, streetaddress);
+			pst.setString(7, city);
+			pst.setString(8, zipcode);
+			pst.setString(9, email);
 
-			int i = paymentStmt.executeUpdate();
+			int i = pst.executeUpdate();
 			System.out.println("database updated"+i);
 
 		} catch(Exception e) {

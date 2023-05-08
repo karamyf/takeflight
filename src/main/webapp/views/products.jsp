@@ -2,7 +2,8 @@
 <%@page import="java.util.*"%>
 <%@page import="java.text.*"%>
 <%@page import ="java.io.FileOutputStream" %>    
-<%@page import=" java.io.ObjectOutputStream" %>    
+<%@page import=" java.io.ObjectOutputStream" %>
+<%@ include file="header.jsp" %>
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -18,46 +19,20 @@
 <title>Document</title>
 </head>
 <body class="bg-light">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img
-				th:src="@{/images/logo.png}" src="../static/images/logo.png"
-				width="auto" height="40" class="d-inline-block align-top" alt="" />
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto"></ul>
-				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link" href="/adminhome">Home
-							Page</a></li>
-					<li class="nav-item active"><a class="nav-link" href="/logout">Logout</a>
-					</li>
-
-				</ul>
-
-			</div>
-		</div>
-	</nav><br>
+	<br>
 	<div class="container-fluid">
 
 		<a style="margin: 20px 0" class="btn btn-primary"
-			href="/admin/products/add">Add Product</a><br>
+			href="/admin/products/add">Add New Flight</a><br>
 		<table class="table">
 
 			<tr>
 				<th scope="col">Serial No.</th>
-				<th scope="col">Product Name</th>
-				<th scope="col">Category</th>
+				<th scope="col">Flights</th>
+				<th scope="col">Countries</th>
 				<th scope="col">Preview</th>
 				<th scope="col">Quantity</th>
 				<th scope="col">Price</th>
-				<th scope="col">Weight</th>
 				<th scope="col">Descrption</th>
 				<th scope="col">Delete</th>
 				<th scope="col">Update</th>
@@ -95,17 +70,15 @@
 						
 					</td>
 					
-					<td><img src=""
+					<td><img src="<%= rs.getString("image") %>"
 						height="100px" width="100px"></td>
 					<td>
 						<%= rs.getInt(5) %>
 					</td>
-					<td>S
+					<td>$
 						<%= rs.getInt(6) %>
 					</td>
-					<td>
-						<%= rs.getInt(7) %>
-					</td>
+
 					<td>
 						<%= rs.getString(8) %>
 					</td>
