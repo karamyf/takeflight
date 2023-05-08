@@ -80,7 +80,7 @@
 					</td>
 
 					<td>
-						<%= rs.getString(8) %>
+						<%= rs.getString(7) %>
 					</td>
 
 					<td>

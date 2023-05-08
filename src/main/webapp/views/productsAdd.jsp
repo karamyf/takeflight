@@ -89,9 +89,8 @@
 					</div>
 					<p>Product Image</p>
 					<div class="custom-file">
-						<input type="file" class="custom-file-input" name="productImage" accept="image/jpeg, image/png" id="productImage" onchange="loadfile(event)" />
-						<label class="custom-file-label border border-warning" for="productImage">Choose file</label>
-						
+						<textarea class="form-control border border-warning" rows="4" name="productImage" placeholder="productImage" value= "no product image"></textarea>
+
 					</div>
 					<div class="form-group">
 

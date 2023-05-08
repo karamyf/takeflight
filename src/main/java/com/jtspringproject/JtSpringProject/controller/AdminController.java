@@ -175,7 +175,7 @@ public class AdminController {
 	@GetMapping("/admin/products/update")
 	public String updateproduct(@RequestParam("pid") int id,Model model) {
 		String pname,pdescription,pimage;
-		int pid,pprice,pweight,pquantity,pcategory;
+		int pid,pprice,pquantity,pcategory;
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -192,8 +192,7 @@ public class AdminController {
 				pcategory = rst.getInt(4);
 				pquantity = rst.getInt(5);
 				pprice =  rst.getInt(6);
-				pweight =  rst.getInt(7);
-				pdescription = rst.getString(8);
+				pdescription = rst.getString(7);
 				model.addAttribute("pid",pid);
 				model.addAttribute("pname",pname);
 				model.addAttribute("pimage",pimage);
@@ -204,7 +203,6 @@ public class AdminController {
 				}
 				model.addAttribute("pquantity",pquantity);
 				model.addAttribute("pprice",pprice);
-				model.addAttribute("pweight",pweight);
 				model.addAttribute("pdescription",pdescription);
 			}
 		}
@@ -215,7 +213,7 @@ public class AdminController {
 		return "productsUpdate";
 	}
 	@RequestMapping(value = "admin/products/updateData",method=RequestMethod.POST)
-	public String updateproducttodb(@RequestParam("id") int id,@RequestParam("name") String name, @RequestParam("price") int price, @RequestParam("weight") int weight, @RequestParam("quantity") int quantity, @RequestParam("description") String description, @RequestParam("productImage") String picture )
+	public String updateproducttodb(@RequestParam("id") int id,@RequestParam("name") String name, @RequestParam("price") int price, @RequestParam("quantity") int quantity, @RequestParam("description") String description, @RequestParam("productImage") String picture )
 
 	{
 		try
@@ -223,14 +221,13 @@ public class AdminController {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject","root","");
 
-			PreparedStatement pst = con.prepareStatement("update products set name= ?,image = ?,quantity = ?, price = ?, weight = ?,description = ? where id = ?;");
+			PreparedStatement pst = con.prepareStatement("update products set name= ?,image = ?,quantity = ?, price = ?,description = ? where id = ?;");
 			pst.setString(1, name);
 			pst.setString(2, picture);
 			pst.setInt(3, quantity);
 			pst.setInt(4, price);
-			pst.setInt(5, weight);
-			pst.setString(6, description);
-			pst.setInt(7, id);
+			pst.setString(5, description);
+			pst.setInt(6, id);
 			int i = pst.executeUpdate();
 		}
 		catch(Exception e)
@@ -266,7 +263,7 @@ public class AdminController {
 		return "redirect:/admin/categories";
 	}
 	@RequestMapping(value = "admin/products/sendData",method=RequestMethod.POST)
-	public String addproducttodb(@RequestParam("name") String name, @RequestParam("categoryid") String catid, @RequestParam("price") int price, @RequestParam("weight") int weight, @RequestParam("quantity") int quantity, @RequestParam("description") String description, @RequestParam("productImage") String picture ) {
+	public String addproducttodb(@RequestParam("name") String name, @RequestParam("categoryid") String catid, @RequestParam("price") int price, @RequestParam("quantity") int quantity, @RequestParam("description") String description, @RequestParam("productImage") String picture ) {
 
 		try
 		{
@@ -277,14 +274,13 @@ public class AdminController {
 			{
 				int categoryid = rs.getInt(1);
 
-				PreparedStatement pst = con.prepareStatement("insert into products(name,image,categoryid,quantity,price,weight,description) values(?,?,?,?,?,?,?);");
+				PreparedStatement pst = con.prepareStatement("insert into products(name,image,categoryid,quantity,price,description) values(?,?,?,?,?,?);");
 				pst.setString(1,name);
 				pst.setString(2, picture);
 				pst.setInt(3, categoryid);
 				pst.setInt(4, quantity);
 				pst.setInt(5, price);
-				pst.setInt(6, weight);
-				pst.setString(7, description);
+				pst.setString(6, description);
 				int i = pst.executeUpdate();
 			}
 		}
