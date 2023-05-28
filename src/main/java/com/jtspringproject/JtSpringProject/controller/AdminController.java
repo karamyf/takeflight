@@ -73,28 +73,37 @@ public class AdminController {
 	}
 	@GetMapping("/adminhome")
 	public String adminHome(Model model) {
-		if(adminlogcheck!=0)
+		model.addAttribute("username", usernameforclass);
 			return "adminHome";
-		else
-			return "redirect:/logout";
-	}
+		}
 	@GetMapping("/loginvalidate")
 	public String adminlog(Model model) {
 
 		return "adminlogin";
 	}
 	@RequestMapping(value = "loginvalidate", method = RequestMethod.POST)
-	public String adminlogin( @RequestParam("username") String username, @RequestParam("password") String pass,Model model) {
+	public String adminlogin(@RequestParam("username") String username, @RequestParam("password") String pass, Model model) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject", "root", "");
+			Statement stmt = con.createStatement();
+			ResultSet rst = stmt.executeQuery("SELECT * FROM users WHERE username = '" + username + "' AND password = '" + pass + "' AND role = 'ROLE_ADMIN';");
 
-		if(username.equalsIgnoreCase("admin") && pass.equalsIgnoreCase("123")) {
-			adminlogcheck=1;
-			return "redirect:/adminhome";
-		}
-		else {
-			model.addAttribute("message", "Invalid Username or Password");
-			return "adminlogin";
+			if (rst.next()) {
+				usernameforclass = rst.getString(2);
+				model.addAttribute("username", usernameforclass);
+				return "redirect:/adminhome";
+			} else {
+				model.addAttribute("message", "Invalid Username or Password");
+				return "adminlogin";
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception: " + e);
+			return "adminhome";
 		}
 	}
+
 	@GetMapping("/admin/categories")
 	public String getcategory() {
 		return "categories";
@@ -311,8 +320,8 @@ public class AdminController {
 			{
 				int userid = rst.getInt(1);
 				displayusername = rst.getString(2);
-				displayemail = rst.getString(3);
-				displaypassword = rst.getString(4);
+				displayemail = rst.getString(6);
+				displaypassword = rst.getString(3);
 				displayaddress = rst.getString(5);
 				model.addAttribute("userid",userid);
 				model.addAttribute("username",displayusername);

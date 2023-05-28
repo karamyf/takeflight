@@ -55,6 +55,7 @@
     <nav>
         <ul>
             <li><a href="index">Home</a></li>
+            <li><a href="profileDisplay">Update Profile</a></li>
             <li><a href="admin">Admin</a></li>
             <li><a href="logout">Logout</a></li>
         </ul>

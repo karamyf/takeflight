@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 08 mai 2023 à 10:58
+-- Généré le : dim. 28 mai 2023 à 16:01
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -124,8 +124,7 @@ INSERT INTO `products` (`id`, `name`, `image`, `categoryid`, `quantity`, `price`
 (25, 'Oujda', 'https://www.traditours.com/cache/jour5-447-400.jpg', 15, 185, 1452, 'Oujda vol'),
 (26, 'Agadir', 'https://assets.airtrfx.com/media-em/ey/cities/Agadir.jpg?width=500&quality=80&fit=crop&format=auto&opt=true', 15, 254, 1452, 'Agadir vol'),
 (27, 'Seoul', 'https://www.atheneum.ai/wp-content/uploads/2019/04/seoul.jpg', 16, 145, 1452, 'Seoul vol'),
-(28, 'aaa', 'https://www.besurmer-tourisme.com/wp-content/uploads/2016/03/Plage-du-moulin-binic-%C3%A9tables-sur-mer-500x500.jpg', 14, 111, 11111, 'karam'),
-(29, 'qqqq', 'aaaaa', 13, 11, 1111, 'aaaaa');
+(28, 'aaa', 'https://www.besurmer-tourisme.com/wp-content/uploads/2016/03/Plage-du-moulin-binic-%C3%A9tables-sur-mer-500x500.jpg', 14, 111, 11111, 'karam');
 
 -- --------------------------------------------------------
 
