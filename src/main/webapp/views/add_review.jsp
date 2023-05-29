@@ -70,8 +70,6 @@
         <option value="5">5 stars</option>
     </select>
 
-    <label for="image">Image:</label>
-    <input type="file" id="image" name="image">
 
     <label for="text">Review:</label>
     <textarea id="text" name="text" required></textarea>

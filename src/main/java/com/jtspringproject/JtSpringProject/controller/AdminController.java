@@ -311,7 +311,7 @@ public class AdminController {
 
 	@GetMapping("profileDisplay")
 	public String profileDisplay(Model model) {
-		String displayusername,displaypassword,displayemail,displayaddress;
+		String displayusername,displaypassword,displayemail,displayrole,displayenabled;
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -323,14 +323,19 @@ public class AdminController {
 			{
 				int userid = rst.getInt(1);
 				displayusername = rst.getString(2);
-				displayemail = rst.getString(6);
 				displaypassword = rst.getString(3);
-				displayaddress = rst.getString(5);
+				displayrole = rst.getString(4);
+				displayenabled = rst.getString(5);
+				displayemail = rst.getString(6);
+
+
 				model.addAttribute("userid",userid);
 				model.addAttribute("username",displayusername);
 				model.addAttribute("email",displayemail);
+				model.addAttribute("email",displayrole);
+				model.addAttribute("email",displayenabled);
 				model.addAttribute("password",displaypassword);
-				model.addAttribute("address",displayaddress);
+
 			}
 		}
 		catch(Exception e)
@@ -342,7 +347,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "updateuser",method=RequestMethod.POST)
-	public String updateUserProfile(@RequestParam("userid") int userid,@RequestParam("username") String username, @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("address") String address)
+	public String updateUserProfile(@RequestParam("userid") int userid,@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("role") String role, @RequestParam("enabled") String enabled, @RequestParam("email") String email)
 
 	{
 		try
@@ -350,12 +355,13 @@ public class AdminController {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject","root","");
 
-			PreparedStatement pst = con.prepareStatement("update users set username= ?,email = ?,password= ?, address= ? where uid = ?;");
+			PreparedStatement pst = con.prepareStatement("update users set username= ?,password= ?,role= ?,enabled= ?,email = ? where uid = ?;");
 			pst.setString(1, username);
-			pst.setString(2, email);
-			pst.setString(3, password);
-			pst.setString(4, address);
-			pst.setInt(5, userid);
+			pst.setString(2, password);
+			pst.setString(3, role);
+			pst.setString(4, enabled);
+			pst.setString(5, email);
+			pst.setInt(6, userid);
 			int i = pst.executeUpdate();
 			usernameforclass = username;
 		}

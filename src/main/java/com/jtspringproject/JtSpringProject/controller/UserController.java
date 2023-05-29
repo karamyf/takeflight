@@ -70,20 +70,15 @@ public class UserController{
 	}
 	@PostMapping("/add_review")
 	public String addReview(@RequestParam("name") String name, @RequestParam("rating") int rating,
-							@RequestParam("image") MultipartFile image, @RequestParam("text") String text) {
+							 MultipartFile image, @RequestParam("text") String text) {
 
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/springproject", "root", "");
-			PreparedStatement pst = conn.prepareStatement("INSERT INTO reviews (name, rating, image, text) VALUES (?, ?, ?, ?);");
+			PreparedStatement pst = conn.prepareStatement("INSERT INTO reviews (name, rating, text) VALUES (?, ?, ?);");
 
 			pst.setString(1, name);
 			pst.setInt(2, rating);
-			if (image != null && !image.isEmpty()) {
-				pst.setBinaryStream(3, image.getInputStream());
-			} else {
-				pst.setNull(3, Types.BLOB);
-			}
-			pst.setString(4, text);
+			pst.setString(3, text);
 
 			pst.executeUpdate();
 			System.out.println("Database updated");
